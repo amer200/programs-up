@@ -1,0 +1,14 @@
+.carousel {
+    height: 500px;
+}
+
+.carousel img {
+    height: 500px;
+}
+
+.carousel-caption {
+    width: 100%;
+    text-align: left;
+    color: #000;
+    bottom: 60px
+}
