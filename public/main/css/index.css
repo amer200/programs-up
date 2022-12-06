@@ -1,5 +1,15 @@
+/* carouser */
 .carousel {
     height: 500px;
+}
+
+.carousel .carousel-control-next-icon,
+.carousel .carousel-control-prev-icon {
+    background-image: url('/main/img/arrow.png');
+}
+
+.carousel .carousel-control-prev-icon {
+    transform: rotate(180deg);
 }
 
 .carousel img {
@@ -12,3 +22,14 @@
     color: #000;
     bottom: 60px
 }
+
+.carousel-caption .btn {
+    background-color: #177E4E;
+    width: 195px;
+    border-color: #177E4E;
+}
+
+.carousel-indicators [data-bs-target] {
+    background-color: #177E4E;
+}
+/* categs nav*/

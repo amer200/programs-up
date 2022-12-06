@@ -4,3 +4,26 @@
 }
 
 /* nav*/
+/* footer*/
+.footer {
+    margin-top: 50px;
+}
+
+.footer a {
+    color: #000;
+    text-decoration: none;
+}
+
+.developed {
+    text-align: right;
+}
+
+.developed a {
+    text-decoration: none;
+}
+
+.developed a i {
+    color: #49C858;
+}
+
+/* footer */
