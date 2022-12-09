@@ -18,10 +18,26 @@
     <div class="container-fluid">
         <div class="row flex-nowrap">
             <%- include('includes/side-bar.ejs'); %>
-                <div class="col py-3">
-                    <div class="row">
+                <div class="col-6 py-3">
+                    <%- include('includes/categs') %>
                         <%- include('includes/articale') %>
-                    </div>
+                            <%- include('includes/add-file') %>
+                </div>
+                <div class="col-3">
+                    <h4>my files</h4>
+                    <ul class="list-group">
+                        <% files.forEach(f=> { %>
+                            <li class="list-group-item"><span class="file-name">
+                                    <%=f.name%>
+                                </span>
+                                <button type="button" class="btn btn-primary"
+                                    onclick="copyFileLink('<%= f.path%>')">copy
+                                    Link</button>
+                                <button type="button" class="btn btn-danger"
+                                    onclick="removeFile('<%=f._id%>')">remove</button>
+                            </li>
+                            <% }); %>
+                    </ul>
                 </div>
         </div>
     </div>

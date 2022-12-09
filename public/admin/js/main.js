@@ -18,3 +18,18 @@ const addNewArical = () => {
   newArticalContent.value = content;
   newArticalForm.submit();
 }
+//////////////////////////////
+const removeFile = (id) => {
+  if (confirm('remove this file ?')) {
+    fetch(`/admin/remove-file/${id}`)
+      .then(res => {
+        location.reload()
+      })
+      .catch(err => {
+        alert(err)
+      })
+  }
+}
+const copyFileLink = (link) => {
+  navigator.clipboard.writeText(`${window.location.href.split('/admin')[0]}${link}`);
+}

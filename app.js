@@ -3,8 +3,9 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const multer = require('multer');
+const mongoose = require('mongoose');
 const port = process.env.PORT;
-
+const db = process.env.DB_URL;
 
 /************************************** */
 app.use(express.static('public'));
@@ -21,11 +22,21 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 app.post('/admin/add-new-articel', upload.single('img'));
+app.post('/admin/add-file', upload.single('file'));
 /************************************* */
 const mainRoutes = require('./routes/main');
 const adminRoutes = require('./routes/admin');
 app.use('/', mainRoutes);
 app.use('/admin', adminRoutes);
-app.listen(port, () => {
-    console.log('app conneted on port ' + port)
-})
+
+mongoose.connect(db)
+    .then(resu => {
+        console.log("conneted to db");
+        app.listen(port, () => {
+            console.log('app conneted on port ' + port)
+        })
+    })
+    .catch(err => {
+        console.log(err)
+    })
+
