@@ -3,8 +3,8 @@ const Aritcal = require('../models/article');
 
 exports.getMainPage = async (req, res) => {
     const categs = await Categ.find();
-    const articels = await Aritcal.find();
-    let slides = [articels[0], articels[1], articels[2]];
+    const articels = await Aritcal.find().populate('categ');
+    let slides = [articels[articels.length - 1], articels[articels.length - 2], articels[articels.length - 3]];
     res.render('main/index', {
         categs: categs,
         articels: articels,
@@ -22,8 +22,8 @@ exports.getArtical = async (req, res) => {
 }
 exports.Search = async (req, res) => {
     let payload = req.body.payload.trim();
-    let search = await Aritcal.find({ name: { $regex: new RegExp() payload, $options: 'i' } });
-    // search = search.slice(0, 10);
+    let search = await Aritcal.find({ title: { $regex: new RegExp(payload + '.*', 'i') } });
+    search = search.slice(0, 10);
     res.send({
         payload: search
     })

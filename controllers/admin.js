@@ -2,6 +2,7 @@ const Categ = require('../models/categ');
 const Aritcal = require('../models/article');
 const File = require('../models/file');
 const fs = require('fs');
+const { ok } = require('assert');
 exports.getMain = async (req, res) => {
     const categs = await Categ.find();
     const files = await File.find();
@@ -44,6 +45,23 @@ exports.AddCateg = (req, res) => {
             console.log(err)
         })
 }
+exports.removeArticale = (req, res) => {
+    const id = req.params.id;
+    Aritcal.findByIdAndRemove(id)
+        .then(a => {
+            fs.unlink(`public${a.img}`, (err) => {
+                if (err) {
+                    console.log(err)
+                }
+            })
+            res.send({
+                msg: 'ok'
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
 exports.addNewFile = (req, res) => {
     const path = req.file.path.split('public')[1];
     const name = req.body.name;
@@ -77,4 +95,20 @@ exports.removeFile = (req, res) => {
         .catch(err => {
             console.log(err)
         })
+}
+exports.getLogin = (req, res) => {
+    res.render('admin/login')
+}
+exports.postLogin = (req, res) => {
+    const password = req.body.password;
+    if (password == process.env.ADMINPWD) {
+        req.session.isAdmin = true;
+        res.redirect('/admin');
+    } else {
+        res.redirect('/admin/login');
+    }
+}
+exports.logOut = (req, res) => {
+    req.session.destroy();
+    res.redirect('/')
 }

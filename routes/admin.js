@@ -1,10 +1,14 @@
 const express = require('express');
 const route = express.Router();
 const adminController = require('../controllers/admin');
-
-route.get('/', adminController.getMain);
-route.post('/add-new-articel', adminController.AddNewArticale);
-route.post('/add-categ', adminController.AddCateg);
-route.post('/add-file', adminController.addNewFile);
-route.get('/remove-file/:id', adminController.removeFile);
+const auth = require('../middleware/auth');
+route.get('/', auth.isAdmin, adminController.getMain);
+route.post('/add-new-articel', auth.isAdmin, adminController.AddNewArticale);
+route.get('/remove-art/:id', auth.isAdmin, adminController.removeArticale);
+route.post('/add-categ', auth.isAdmin, adminController.AddCateg);
+route.post('/add-file', auth.isAdmin, adminController.addNewFile);
+route.get('/remove-file/:id', auth.isAdmin, adminController.removeFile);
+route.get('/login', adminController.getLogin);
+route.post('/login', adminController.postLogin);
+route.get('/signout', auth.isAdmin, adminController.logOut);
 module.exports = route;

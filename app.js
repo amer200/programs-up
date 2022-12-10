@@ -4,6 +4,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const mongoose = require('mongoose');
+const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 const port = process.env.PORT;
 const db = process.env.DB_URL;
 
@@ -24,6 +26,17 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 app.post('/admin/add-new-articel', upload.single('img'));
 app.post('/admin/add-file', upload.single('file'));
+/************************************* */
+const store = new MongoDBStore({
+    uri: db,
+    collection: 'mySessions'
+});
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: store
+}))
 /************************************* */
 const mainRoutes = require('./routes/main');
 const adminRoutes = require('./routes/admin');

@@ -33,3 +33,13 @@ const removeFile = (id) => {
 const copyFileLink = (link) => {
   navigator.clipboard.writeText(`${window.location.href.split('/admin')[0]}${link}`);
 }
+//////////////////////////////////////
+const removeArt = (id) => {
+  fetch(`/admin/remove-art/${id}`)
+    .then(res => {
+      location.reload();
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}

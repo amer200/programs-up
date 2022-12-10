@@ -26,4 +26,20 @@
     color: #49C858;
 }
 
+#searchResult {
+    position: absolute;
+    top: 57px;
+    z-index: 999999999999999;
+}
+
+#searchResult a {
+    text-decoration: none;
+    color: #333;
+}
+
+#searchResult a:hover {
+    color: #888;
+    font-size: 1.5rem;
+}
+
 /* footer */
